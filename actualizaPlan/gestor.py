@@ -17,9 +17,6 @@ Objetivos
         tener en cuenta que nuevas materias pueden resultar en EXAMEN o TUTORIA, deben ser revisadas.
         En la página web se representa PENDIENTE≡GRIS, TUTORIA≡ROJO, EXAMEN≡AMARILLO y APROBADA≡VERDE
     3)  Función que compruebe si una materia del 2023 puede ser cursada en el próximo semestre.
-
-Qué hace..
-    Carga cada estado 
 """
 class EstadoMateria:
     PENDIENTE = 0
@@ -316,7 +313,7 @@ def plan2023(): # BD materias del plan 2023
             'codigo': "TIND", 
             'nombre': "Telematica industrial", 
             'previasCursadas': ["TMPR","PRG3"], 
-            'previasAprobadas': ["EALG","PRG2"], 
+            'previasAprobadas': ["EALG","PRG2"],  
             'semestre': 5
         },
         { # FIS3 
@@ -614,6 +611,8 @@ def nuevoEstado(unaMateria: Materia2023): # Función auxiliar al objetivo 2
         for materia_2018 in unAlumno.materias_2018:
             if materia_eq_2018 in materia_2018.nombre:
                 encontreMateria = True
+                if materia_2018.nombre == "fenomenos_de_transporte":
+                    print(f"ACA ESTA: {materia_2018.nombre} .. {materia_2018.estado}")
                 if materia_eq_2018 == materia_2018.nombre:
                     if materia_2018.estado == EstadoMateria.EXAMEN:
                         # Cómo TUTORIA es el peor caso, hay que tomar esa excepción
@@ -623,7 +622,9 @@ def nuevoEstado(unaMateria: Materia2023): # Función auxiliar al objetivo 2
                             estadoNuevo = EstadoMateria.EXAMEN
                     elif materia_2018.estado == EstadoMateria.TUTORIA:
                         estadoNuevo = EstadoMateria.TUTORIA
-                    elif materia_2018.estado == EstadoMateria.PENDIENTE:
+                    elif materia_2018.estado == 0:
+                        if materia_2018.nombre == "fenomenos_de_transporte":
+                            print ("Hola mundo")
                         # Si alguna materia eq del plan 2018 se encuentra pendiente,
                         # la correspondiente al plan 2023 tendrá el mismo estado,
                         # sin importar el estado del resto de mateiras eq.

@@ -1,4 +1,9 @@
-from flask import Flask, render_template, request
+"""
+Descripción de la web
+
+"""
+
+from flask import Flask, render_template, request, jsonify
 from gestor import *
 
 app = Flask(__name__)
@@ -14,7 +19,7 @@ def consultaMaterias():
     cargarEstados2018(estados_plan2018) 
     estados_plan2023 = actualizarEstados2023()
     
-    return estados_plan2023
+    return jsonify(estados_plan2023)
 
 if __name__ == '__main__':
     app.run(debug=True)

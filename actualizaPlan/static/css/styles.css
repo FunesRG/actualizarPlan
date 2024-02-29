@@ -247,6 +247,8 @@ section {
 }
 
 .pendiente{ background: rgb(52, 54, 61); }
-.aprobada{ background: rgb(75, 155, 87); }
+.aprobada{ background: aliceblue; }
 .examen{ background: rgb(236, 225, 19) }
 .tutoria{ background: rgb(210, 53, 44); }
+
+.puedeCursar{ background: rgb(75, 155, 87); }

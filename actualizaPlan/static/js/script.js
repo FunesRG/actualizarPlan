@@ -16,9 +16,8 @@ $(document).ready(function() {
     var $links = $accordion.find('.link');
 
     $links.on('click', { el: $accordion, multiple: false }, dropdown);
-    const plan2023Div = document.querySelector('.plan2023Struct');
-    
 
+    const plan2023Div = document.querySelector('.plan2023Struct');
     const mostrarPlanButton = document.getElementById('mostrarPlan'); // Obtengo el boton mostrarPlan
     mostrarPlanButton.addEventListener('click', function() {
         const materias = [];
@@ -33,17 +32,30 @@ $(document).ready(function() {
             plan2023Div.classList.remove('hidden');
         }
 
-        // Envio al back el vector materias con la info de estados.
+        // Envio al back end el vector de materias con la información de estados.
         $.ajax({
             type: 'POST',
-            url: '/consultaMaterias',  // La URL del endpoint en tu servidor Flask
-            contentType: 'application/json',
-            data: JSON.stringify({estados: materias}),  // Enviar el array como JSON
+            url: '/consultaMaterias',
+            contentType: 'application/json', 
+            data: JSON.stringify({estados: materias}),  // Enviar el array como JSON 
 
             success: function(response) {
-                
-
                 console.log(response);
+                const materiaDivs = document.querySelectorAll(".plan2023 .child");
+                materiaDivs.forEach(function(materiaDiv, index) {
+                    const estado = response[index];
+                    materiaDiv.classList.remove("pendiente", "aprobada", "examen", "tutoria");
+                    
+                    if (estado === 0) {
+                        materiaDiv.classList.add("pendiente");
+                    } else if (estado === 1) {
+                        materiaDiv.classList.add("aprobada");
+                    } else if (estado === 2) {
+                        materiaDiv.classList.add("examen");
+                    } else if (estado === 3) {
+                        materiaDiv.classList.add("tutoria");
+                    }
+                });
             },
             
             error: function(error) {
